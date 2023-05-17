@@ -1,3 +1,4 @@
+package main;
 import java.util.Scanner;
 
 public class GradeManager {
@@ -9,11 +10,15 @@ public class GradeManager {
         scan = _scan;
     }
 
-    public void addStudent(Student student) {
+    public Boolean addStudent(Student student) {
         if (studentCounter < 10) {
             students[studentCounter] = student;
             studentCounter++;
+            
+            return true;
         }
+
+        return false;
     }
 
     private Double getGrade(String msg) {
@@ -21,14 +26,18 @@ public class GradeManager {
         return scan.nextDouble();
     }
 
-    public void registerStudent() {
+    public Boolean registerStudent() {
         System.out.print("[Student Name]: ");
         String name = scan.next();
         scan.nextLine();
 
+        if (name.isEmpty()) return false;
+
         Student newStudent = new Student(name);
         addStudent(newStudent);
         registerGrade(newStudent);
+
+        return true;
     }
 
     public void registerGrade(Student student) {
